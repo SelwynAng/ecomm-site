@@ -3,11 +3,11 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <% content_for :title, "Categories" %>
+  <% content_for :title, "Products" %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Categories</h1>
-    <%= link_to "New category", new_admin_category_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <h1 class="font-bold text-4xl">Products</h1>
+    <%= link_to "New product", new_admin_product_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
   <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
@@ -25,19 +25,25 @@
               <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
                 Description
               </th>
+              <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
+                Price
+              </th>
             </tr>
           </thead>
           <tbody>
-            <% @admin_categories.each do |c| %>
+            <% @admin_products.each do |p| %>
             <tr class="bg-gray-50 border-b">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 underline">
-                <%= c.image.present? ? image_tag(c.image.variant(:thumb)) : image_tag("https://via.placeholder.com/100") %>
+                <%= p.images.any? ? image_tag(p.images.first.variant(:thumb)) : image_tag("https://via.placeholder.com/100") %>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 underline">
-                <%= link_to c.name, edit_admin_category_path(c) %>
+                <%= link_to p.name, edit_admin_product_path(p) %>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                <%= c.description %>
+                <%= p.description %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                $<%= (p.price/100.00).to_s %>
               </td>
             </tr>
             <% end %>
