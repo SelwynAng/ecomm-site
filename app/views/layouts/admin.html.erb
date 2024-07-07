@@ -11,13 +11,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class>
+  <body>
     <main class="flex w-full">
       <nav class="flex">
         <div class="w-64 p-4 h-screen bg-green-700 sticky top-0">
           <div class="flex">
             <%= image_tag 'logo.jpeg', class: 'w-16 mr-2' %>
             <h1 class="text-md py-2 text-gray-50 font-bold hidden md:block">VeGGies Admin Dashboard</h1>
+          </div>
+          <div class="w-full pr-4 py-2 text-gray-50">
+            Welcome, <%= @current_admin_email %>
           </div>
           <ul class="flex flex-col text-gray-50">
             <li>
@@ -42,6 +45,12 @@
               <%= link_to admin_orders_path, class: "block px-4 py-2 hover:rounded hover:bg-green-800" do %>
                 <%= icon('fa-solid', 'truck-fast', class: 'mr-2') %>
                 <span class="hidden md:inline-block">Orders</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_admin_session_path, data: { "turbo-method": :delete, "turbo-confirm": "Are you sure you want to sign out?" }, class: "block px-4 py-2 hover:rounded hover:bg-green-800" do %>
+                <%= icon('fa-solid', 'sign-out', class: 'mr-2') %>
+                <span class="hidden md:inline-block">Sign Out</span>
               <% end %>
             </li>
           </ul>
