@@ -1,6 +1,6 @@
 <h1>Home</h1>
 
-<div class="flex justify-between flex-wrap mt-8 w-full items-center max-w-5xl">
+<div class="flex justify-between flex-wrap mt-8 w-full items-center">
     <h2 class="text-2xl text-gray-800 font-medium mb-4">Daily Stats</h2>
     <div class="flex gap-10 flex-col md:flex-row justify-between w-full">
         <div class="w-1/4 rounded overflow-hidden shadow-xl bg-gradient-to-r from-green-700 to-green-500">
@@ -45,4 +45,38 @@
         </div>
 
     </div>
+
+    <div class="flex flex-col w-full">
+    <h2 class="text-2xl text-gray-800 mb-4 font-medium">Recent Unfulfilled Orders</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full" style="border-collapse: separate; border-spacing: 0;">
+      <thead>
+        <tr class="text-gray-800">
+          <th class="px-6 py-3 border-b-2 border-gray-200 bg-green-500">Order ID</th>
+          <th class="px-6 py-3 border-b-2 border-gray-200 bg-green-500">Customer</th>
+          <th class="px-6 py-3 border-b-2 border-gray-200 bg-green-500">Date</th>
+          <th class="px-6 py-3 border-b-2 border-gray-200 bg-green-500">Amount</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700">
+        <% @orders.each do |order| %>
+          <tr>
+            <td class="px-6 py-4 border-b border-gray-200">
+              <%= link_to order.id, admin_order_path(order), class: "underline" %>
+            </td>
+            <td class="px-6 py-4 border-b border-gray-200">
+              <%= order.customer_email %>
+            </td>
+            <td class="px-6 py-4 border-b border-gray-200">
+              <%= order.created_at.strftime("%B %d, %Y %H:%M") %>
+            </td>
+            <td class="px-6 py-4 border-b border-gray-200">
+              $<%= (order.total/100.0).to_s %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+      </table>
+    </div>
+  </div>
 </div>
