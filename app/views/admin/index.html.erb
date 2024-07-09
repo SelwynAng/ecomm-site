@@ -1,1 +1,48 @@
-<h1>Admin</h1>
+<h1>Home</h1>
+
+<div class="flex justify-between flex-wrap mt-8 w-full items-center max-w-5xl">
+    <h2 class="text-2xl text-gray-800 font-medium mb-4">Daily Stats</h2>
+    <div class="flex gap-10 flex-col md:flex-row justify-between w-full">
+        <div class="w-1/4 rounded overflow-hidden shadow-xl bg-gradient-to-r from-green-700 to-green-500">
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2 text-white">Today's Revenue</div>
+                <p class="text-white text-base">
+                $<%= @quick_stats[:today_revenue] ? (@quick_stats[:today_revenue]/100.0).to_s : "0" %>
+                </p>
+            </div>
+        </div>
+        <div class="w-1/4 rounded overflow-hidden shadow-xl bg-gradient-to-r from-green-700 to-green-500">
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2 text-white">Today's Sales</div>
+                <p class="text-white text-base">
+                <%= @quick_stats[:today_sales] ? (@quick_stats[:today_sales]).to_s : "0" %>
+                </p>
+            </div>
+        </div>
+        <div class="w-1/4 rounded overflow-hidden shadow-xl bg-gradient-to-r from-green-700 to-green-500">
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2 text-white">Last Week's Revenue</div>
+                <p class="text-white text-base">
+                    $<%= @quick_stats[:weekly_revenue] ? (@quick_stats[:weekly_revenue]/100.0).to_s : "0" %>
+                </p>
+            </div>
+        </div>
+        <div class="w-1/4 rounded overflow-hidden shadow-xl bg-gradient-to-r from-green-700 to-green-500">
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2 text-white">Last Week's Sales</div>
+                    <p class="text-white text-base">
+                        <%= @quick_stats[:weekly_sales] ? (@quick_stats[:weekly_sales]).to_s : "0" %>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-8 w-full">
+            <h2 class="text-2xl text-gray-800 font-medium mb-4">Revenue</h2>
+            <div class="w-full" data-controller="dashboard" data-dashboard-revenue-value="<%= @revenue_by_day.to_json %>">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+</div>
