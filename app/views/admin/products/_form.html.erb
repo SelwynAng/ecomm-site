@@ -47,7 +47,9 @@
   </div>
 
   <div class="my-5">
+    <% if admin_product&.persisted? %>
     <%= link_to "Product Stock", admin_product_stocks_path(admin_product), class: "underline" %>
+    <% end %>
   </div>
 
   <div class="inline">

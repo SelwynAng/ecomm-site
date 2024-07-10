@@ -37,13 +37,27 @@
             </div>
         </div>
 
-        <div class="my-8 w-full">
-            <h2 class="text-2xl text-gray-800 font-medium mb-4">Revenue</h2>
-            <div class="w-full" data-controller="dashboard" data-dashboard-revenue-value="<%= @revenue_by_day.to_json %>">
+        <div class="my-8 w-full" 
+          data-controller="dashboard"
+          data-dashboard-week-value="<%= @revenue_by_day_past_week.to_json %>"
+          data-dashboard-month-value="<%= @revenue_by_day_past_month.to_json %>"
+        >
+          <h2 class="text-2xl text-gray-800 font-medium mb-4">Revenue</h2>
+            <div class="flex justify-between mb-4">
+                <label for="revenueToggle" class="font-medium text-gray-700">Select Day Range:</label>
+                <select 
+                    id="revenueToggle" 
+                    class="border border-gray-300 rounded-md shadow-sm"
+                    data-action="change->dashboard#handleToggle"
+                >
+                    <option value="week">Last 7 Days</option>
+                    <option value="month">Last Month</option>
+                </select>
+            </div>
+            <div class="w-full">
                 <canvas id="revenueChart"></canvas>
             </div>
         </div>
-
     </div>
 
     <div class="flex flex-col w-full">
