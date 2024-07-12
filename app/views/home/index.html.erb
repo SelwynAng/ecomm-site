@@ -1,1 +1,25 @@
-<h1>Home</h1>
+<div class="bg-green-700 text-white text-center py-20">
+    <h1 class="text-5xl font-bold mb-4">Welcome to VeGGies</h1>
+    <p class="text-xl mb-8"> Your one-stop shop for all your fibre and vitamin needs!</p>
+    <%= link_to "Shop Now", root_path, class: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" %>
+</div>
+
+<div class="flex flex-wrap justify-center mt-8 gap-10">
+    <% @main_categories.each do |category| %>
+        <%= link_to category_path(category) do %>
+            <div class="flex flex-col mb-4 max-w-40">
+                <h2 class="text-gray-800 font-medium text-lg text-center mb-6">
+                    <%= category.name %>
+                </h2>
+                <%= category.image.present? ? image_tag(category.image, class: "max-w-lg") : image_tag("https://via.placeholder.com/512") %>
+            </div>
+        <% end %>
+    <% end %>
+</div>
+
+<div class="my-8">
+    <p class="text-xl mb-4 text-gray-700 text-center">Our Location</p>
+    <div data-controller="map">
+        <div id="myMap" data-map-target="myMap" style="height: 400px; width: 100%;"></div>
+    </div>
+</div>
