@@ -5,40 +5,29 @@ export default class extends Controller {
   static targets = ['myMap', 'lat', 'lng', 'locationName']
 
   connect() {
-    let lat = 1.4247527338672488
-    let lng = 103.8332382527072
+    const lat = 1.4247527338672488
+    const lng = 103.8332382527072
     this.initMap(lat, lng)
   }
 
 
   async initMap(lat, lng) {
-    // The location of Uluru
     const position = {lat: lat, lng: lng};
-    let mapId = this.myMapTarget.id
+    const mapId = this.myMapTarget.id
 
-    const {Map} = await google.maps.importLibrary("maps");
+    const { Map } = await google.maps.importLibrary("maps");
+    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
-    let map = new Map(document.getElementById(mapId), {
+    const map = new Map(document.getElementById(mapId), {
       center: position,
-      zoom: 16
+      zoom: 16,
+      mapId: "myMap"
     });
 
-
-    this.addSingleMarker(position, map)
-  }
-
-  addSingleMarker(position, map) {
-    const marker = new google.maps.Marker({
-      position,
+    const marker = new AdvancedMarkerElement({
       map,
+      position: position,
+      title: 'VeGGies',
     });
-  }
-
-  updateCordinate() {
-    if (event.currentTarget.dataset.googleMapTarget = 'lat') {
-      this.initMap(parseFloat(event.currentTarget.value), parseFloat(this.lngTarget.value))
-    } else {
-      this.initMap(parseFloat(this.latTarget.value), parseFloat(event.currentTarget.value))
-    }
   }
 }
