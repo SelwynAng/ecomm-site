@@ -43,6 +43,8 @@ export default class extends Controller {
 
       localStorage.setItem("cart", JSON.stringify(cartArray));
     }
+
+    window.location.reload()
   }
 
   selectSize(e) {

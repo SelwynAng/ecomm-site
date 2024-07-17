@@ -1,4 +1,4 @@
-<nav class="fixed w-full top-0 bg-green-800 z-10 py-4">
+<nav class="fixed w-full top-0 bg-green-800 z-10 py-4" data-controller="cart-item-count">
   <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
     <div class="relative flex items-center justify-between h-16">
       <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-between">
@@ -19,6 +19,7 @@
           <div class="flex space-x-10">
             <%= link_to cart_path, class: "text-white hover:underline py-2 rounded-md text-md font-medium" do %>
               <%= icon 'fa-solid', 'shopping-cart' %>
+               <span data-cart-item-count-target="itemCount" class="absolute top-0 right-0 inline-block w-6 h-6 bg-red-500 text-white text-center rounded-full"></span>
             <% end %>
           </div>
         </div>

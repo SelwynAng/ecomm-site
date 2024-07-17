@@ -6,35 +6,34 @@ export default class extends Controller {
 
   connect() {
     console.log("connected!")
+    this.renderCartItems()
+    this.updateTotal()
   }
 
-  initialize() {
+  renderCartItems() {
     const cart = JSON.parse(localStorage.getItem("cart"))
     if (!cart) {
       return
     }
 
-    let total = 0
-    for (let i=0; i < cart.length; i++) {
-      const item = cart[i]
-      total += item.price * item.quantity
+    const cartItemsContainer = document.getElementById("cartItemsContainer")
+
+    cart.forEach(item => {
       const div = document.createElement("div")
       div.classList.add("mt-2")
-      div.innerText = `Item: ${item.name} - $${item.price/100.0} - Size: ${item.size} - Quantity: ${item.quantity}`
+      div.setAttribute("data-id", item.id)
+      div.setAttribute("data-size", item.size)
+      div.innerText = `Item: ${item.name} - $${item.price / 100.0} - Size: ${item.size} - Quantity: ${item.quantity}`
+      
       const deleteButton = document.createElement("button")
       deleteButton.innerText = "Remove"
-      console.log("item.id: ", item.id)
-      deleteButton.value = JSON.stringify({id: item.id, size: item.size})
+      deleteButton.value = JSON.stringify({ id: item.id, size: item.size })
       deleteButton.classList.add("bg-gray-500", "rounded", "text-white", "px-2", "py-1", "ml-2")
-      deleteButton.addEventListener("click", this.removeFromCart)
-      div.appendChild(deleteButton)
-      this.element.prepend(div)
-    }
+      deleteButton.addEventListener("click", (event) => this.removeFromCart(event))
 
-    const totalEl = document.createElement("div")
-    totalEl.innerText= `Total: $${total/100.0}`
-    let totalContainer = document.getElementById("total")
-    totalContainer.appendChild(totalEl)
+      div.appendChild(deleteButton)
+      cartItemsContainer.appendChild(div)
+    })
   }
 
   clear() {
@@ -45,13 +44,30 @@ export default class extends Controller {
   removeFromCart(event) {
     const cart = JSON.parse(localStorage.getItem("cart"))
     const values = JSON.parse(event.target.value)
-    const {id, size} = values
+    const { id, size } = values
     const index = cart.findIndex(item => item.id === id && item.size === size)
     if (index >= 0) {
       cart.splice(index, 1)
     }
     localStorage.setItem("cart", JSON.stringify(cart))
-    window.location.reload()
+    event.target.parentElement.remove()
+    this.updateTotal()
   }
 
+  updateTotal() {
+    const cart = JSON.parse(localStorage.getItem("cart"))
+    let total = 0
+    if (cart) {
+      cart.forEach(item => {
+        total += item.price * item.quantity
+      })
+    }
+    const totalContainer = document.getElementById("total")
+    totalContainer.innerText = `Total: $${total / 100.0}`
+  }
+
+  checkout() {
+    // Handle checkout logic here
+    console.log("Checkout clicked!")
+  }
 }
