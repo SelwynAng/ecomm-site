@@ -49,6 +49,7 @@
             <% end %>
           </tbody>
         </table>
+        <%== pagy_nav(@admin_products_pagy) if @admin_products_pagy.pages > 1 %>
       </div>
     </div>
   </div>
