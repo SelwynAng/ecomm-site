@@ -29,4 +29,5 @@ Rails.application.routes.draw do
   post "checkout" => "checkout#create"
   get "success" => "checkout#success"
   get "cancel" => "checkout#cancel"
+  post "webhook" => "webhooks#stripe"
 end
